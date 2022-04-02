@@ -2,13 +2,17 @@ import express from 'express';
 import multer from 'multer';
 import path from 'path';
 import { loadImage } from './loadImage';
-import { image } from './main';
+import { image, progress } from './main';
 import fs from 'fs';
 
 const upload = multer({ dest: 'uploads/' })
 
 const app = express();
 // app.use(express.urlencoded({ extended: true }));
+
+app.get('/', (req, res) => {
+    res.send(`Postęp: ${Math.round(progress * 100)}`);
+});
 
 app.get('/current.png', (req, res) => {
     res.sendFile(path.resolve(__dirname + '/../../data/image.png'));

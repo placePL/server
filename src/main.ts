@@ -9,6 +9,7 @@ export let image: ImageTemplate = require('../data/image.json');
 let io: Server;
 let clients: Client[] = [];
 let queue = new RandomQueue<Pixel>();
+export let progress = 0;
 
 async function main() {
     io = new Server();
@@ -118,6 +119,8 @@ async function getPixelsToDraw(): Promise<RandomQueue<Pixel>> {
         left++;
     }
     console.log(`${left}/${total} pixels left || ${clients.length} clients`);
+
+    progress = left/total;
 
     return q;
 }
