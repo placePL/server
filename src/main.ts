@@ -46,7 +46,7 @@ async function main() {
 
 
 
-    await sleep(30 * 1000);
+    // await sleep(30 * 1000);
     await step();
     setInterval(step, 5 * 60 * 1000);
     setInterval(async () => {
