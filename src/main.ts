@@ -65,7 +65,7 @@ async function getNextFreeClient(): Promise<Client | null> {
     if(!c) return null;
     
     if(c.ratelimitEnd > Date.now()) {
-        await sleep(c.ratelimitEnd - Date.now());
+        return null;
     }
     return c;
 }
