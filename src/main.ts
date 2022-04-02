@@ -80,7 +80,7 @@ async function step() {
 
     let c = await getNextFreeClient();
     if(!c || !c.ready) {
-        console.log('no available clients');
+        // console.log('no available clients');
         queue.enqueue(px);
         return;
     }
@@ -110,7 +110,7 @@ async function getPixelsToDraw(): Promise<Queue<Pixel>> {
         const c = getColorAt(currentData, x, y, width);
         if(Colors[c] == color) continue;
 
-        let obj = {x: topLeftX + x, y: topLeftY + y, color: color + 1};
+        let obj = {x: topLeftX + x, y: topLeftY + y, color: color};
         // console.log('adding to queue', obj);
         q.enqueue(obj);
         left++;
