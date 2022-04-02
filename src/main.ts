@@ -52,9 +52,9 @@ async function main() {
 }
 
 async function run() {
-    await sleep(30 * 1000);
-    await step();
-    setInterval(step, 5 * 60 * 1000);
+    // await sleep(30 * 1000);
+    // await step();
+    setInterval(step, 1000);
     setInterval(async () => {
         console.log('updating queue...');
         queue = await getPixelsToDraw();
@@ -86,27 +86,29 @@ async function step() {
         console.log('q empty');
         return;
     }
-    console.log('step...');
+
+    let px = queue.dequeue();
 
     let c = await getNextFreeClient();
-    while(c && c.ready && c.ratelimitEnd < Date.now()) {
-        let px = queue.dequeue();
-
-        console.log(`sending draw to ${c.id} - ${px.x} ${px.y} ${px.color}`);
-        let socket = io.sockets.sockets.get(c.id);
-        if(!socket) {
-            removeClient(socket.id);
-            queue.enqueue(px);
-            return;
-        }
-    
-        socket.emit('draw', px);
-        totalDraws++;
-        updateClient(c.id, { ready: false });
-    
-        c = await getNextFreeClient();
+    if(!c || !c.ready) {
+        // console.log('no available clients');
+        queue.enqueue(px);
+        return;
     }
+
+    console.log(`sending draw to ${c.id} - ${px.x} ${px.y} ${px.color}`);
+    let socket = io.sockets.sockets.get(c.id);
+    if(!socket) {
+        removeClient(socket.id);
+        queue.enqueue(px);
+        return;
+    }
+
+    socket.emit('draw', px);
+    totalDraws++;
+    updateClient(c.id, { ready: false });
 }
+
 
 async function getPixelsToDraw(): Promise<Queue<Pixel>> {
     let q = new Queue<Pixel>();
