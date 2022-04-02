@@ -12,12 +12,12 @@ export async function loadImage(path: string, topxy: string): Promise<ImageTempl
     for(let y=0; y<height; y++) {
         for(let x=0; x<width; x++) {
             let hex = img.getPixelColor(x, y).toString(16);
-            hex = ("00000000" + hex).slice(-8, -2)
+            hex = ("00000000" + hex).slice(-8)
 
             if(hex.endsWith('00')) {
                 continue;
             }
-            const color = hex.slice(-6);
+            const color = hex.slice(2);
             res.pixels.push([x, y, Colors[color]])
         }
     }
