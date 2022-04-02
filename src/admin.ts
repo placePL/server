@@ -11,7 +11,13 @@ const app = express();
 // app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
-    res.send(`Postęp: ${Math.round(progress * 100)}%`);
+    const str = `    
+<h2>Obecny obrazek:</h2>
+<img src='/web/current.png'>
+<h2>Postęp: ${Math.round(progress * 100)}%</h2>
+<h2>Lewy górny punkt: (${image.props.topLeftX}, ${image.props.topLeftY})</h2>
+`;
+    res.send(str);
 });
 
 app.get('/current.png', (req, res) => {
@@ -19,7 +25,7 @@ app.get('/current.png', (req, res) => {
 })
 
 app.get('/admin', (req, res) => {
-    res.sendFile(path.resolve(__dirname + '/../../static/index.html'));
+    res.sendFile(path.resolve(__dirname + '/../../static/admin.html'));
 });
 
 app.post('/admin', upload.single('file'), async (req, res) => {
