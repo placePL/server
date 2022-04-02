@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "tsc && node dist/src/main.js",
-    "loadImage": "yarn tsc && node dist/src/loadImage.js > data/image2.json"
+    "loadImage": "yarn tsc && node dist/src/loadImage.js > data/image.json"
   },
   "keywords": [],
   "author": "",
