@@ -15,8 +15,9 @@ export async function getPixelsAt(x: number, y: number, w: number, h: number): P
                 height: 800
             }
         });
-        page = await browser.newPage();
     }
+
+    page = await browser.newPage();
 
     if(busy) return;
 
@@ -32,9 +33,11 @@ export async function getPixelsAt(x: number, y: number, w: number, h: number): P
     await page.waitForTimeout(2000);
 
     const canvas = await (await frame.evaluateHandle(canvasJsPath)).asElement()!;
+
     const data = await canvas.evaluate((c: HTMLCanvasElement, [x, y, w, h]) => c.getContext('2d').getImageData(x, y, w, h), [x, y, w, h]);
 
     busy = false;
+    page.close();
 
     return data;
 }

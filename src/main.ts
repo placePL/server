@@ -11,7 +11,7 @@ let queue = new Queue<Pixel>();
 async function main() {
     io = new Server();
 
-    await getPixelsToDraw();
+    queue = await getPixelsToDraw();
 
     io.on('connection', (socket) => {
         console.log('socket connected', socket.id);
@@ -29,8 +29,14 @@ async function main() {
         socket.on('ready', () => {
             updateClient(socket.id, { ready: true, });
             console.log(`client ${socket.id} ready`);
+        });
+
+        socket.on('disconnect', () => {
+            console.log('socket disconnected', socket.id);
+            removeClient(socket.id);
         })
     });
+
 
 
     setInterval(step, 1000);
@@ -49,8 +55,13 @@ function updateClient(id: string, newData: Partial<Client>) {
     clients[i] = { ...clients[i], ...newData };
 }
 
+function removeClient(id: string) {
+    let idx = clients.findIndex(x => x.id == id);
+    clients.splice(idx, 1);
+}
+
 async function getNextFreeClient(): Promise<Client | null> {
-    const c = Object.values(clients).reduce((acc, x) => (x.ready && (acc === null || acc.ratelimitEnd > x.ratelimitEnd)) ? x : acc, null);
+    const c = clients.reduce((acc, x) => (x.ready && (acc === null || acc.ratelimitEnd > x.ratelimitEnd)) ? x : acc, null);
     if(!c) return null;
     
     if(c.ratelimitEnd > Date.now()) {
@@ -60,18 +71,29 @@ async function getNextFreeClient(): Promise<Client | null> {
 }
 
 async function step() {
-    if(queue.isEmpty) return;
+    if(queue.isEmpty) {
+        console.log('q empty');
+        return;
+    }
 
     let px = queue.dequeue();
 
     let c = await getNextFreeClient();
     if(!c || !c.ready) {
+        console.log('no available clients');
         queue.enqueue(px);
         return;
     }
 
     console.log('sending draw to', c.id);
-    io.sockets.sockets.get(c.id).emit('draw', px);
+    let socket = io.sockets.sockets.get(c.id);
+    if(!socket) {
+        removeClient(socket.id);
+        queue.enqueue(px);
+        return;
+    }
+
+    socket.emit('draw', px);
     updateClient(c.id, { ready: false });
 }
 
