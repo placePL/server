@@ -115,7 +115,7 @@ async function getPixelsToDraw(): Promise<Queue<Pixel>> {
         q.enqueue(obj);
         left++;
     }
-    console.log(`${left}/${total} pixels left`);
+    console.log(`${left}/${total} pixels left || ${clients.length} clients`);
 
     return q;
 }
