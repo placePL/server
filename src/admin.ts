@@ -23,12 +23,16 @@ app.post('/admin', upload.single('file'), async (req, res) => {
     image.props = data.props;
     image.pixels = data.pixels;
 
-    fs.writeFileSync(__dirname + '/../../data/image.json', JSON.stringify(data));
+
+    console.log(path.resolve('data/image.json'));
+    fs.writeFileSync(path.resolve('data/image.json'), JSON.stringify(data));
+    fs.renameSync(path.resolve(req.file.path), path.resolve('data/image.png'));
 
     console.log('new image template loaded');
 
-    res.redirect('./');
+    res.redirect('');
 });
 
 const port = process.env.ADMIN_PORT || 3001;
 app.listen(port, () => console.log('admin listening on :'+port));
+ 

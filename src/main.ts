@@ -110,7 +110,7 @@ async function getPixelsToDraw(): Promise<Queue<Pixel>> {
     for (const [x, y, color] of image.pixels) {
         total++;
         const c = getColorAt(currentData, x, y, width);
-        if(Colors[c] == color) continue;
+        if(Colors[c] == color || color == -1) continue;
 
         let obj = {x: topLeftX + x, y: topLeftY + y, color: color};
         // console.log('adding to queue', obj);
@@ -123,3 +123,6 @@ async function getPixelsToDraw(): Promise<Queue<Pixel>> {
 }
 
 main().catch(console.error);
+
+process.on('uncaughtException', console.error);
+process.on('unhandledRejection', console.error);

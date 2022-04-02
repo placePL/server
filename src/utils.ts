@@ -60,7 +60,7 @@ export function rgbToHexString(r, g, b) {
   return ("000000" + rgbToHex(r, g, b)).slice(-6);
 }
 
-export function getColorAt(data: ImageData, x: number, y: number, width: number): string {
+export function getColorAt(data: ImageData, x: number, y: number, width: number): string | null {
   const [redIndex, greenIndex, blueIndex, alphaIndex] = getColorIndicesForCoord(x, y, width);
   var r = data.data[redIndex];
   var g = data.data[greenIndex];

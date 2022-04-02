@@ -11,8 +11,13 @@ export async function loadImage(path: string, topxy: string): Promise<ImageTempl
     let res = { props: { width, height, topLeftX, topLeftY }, pixels: [] }
     for(let y=0; y<height; y++) {
         for(let x=0; x<width; x++) {
-            const rawHex = img.getPixelColor(x, y).toString(16);
-            const color = ("000000" + rawHex).slice(-8, -2);
+            let hex = img.getPixelColor(x, y).toString(16);
+            hex = ("00000000" + hex).slice(-8, -2)
+
+            if(hex.endsWith('00')) {
+                continue;
+            }
+            const color = hex.slice(-6);
             res.pixels.push([x, y, Colors[color]])
         }
     }
@@ -21,6 +26,7 @@ export async function loadImage(path: string, topxy: string): Promise<ImageTempl
 }
 
 if (require.main === module) {
+    console.log('hi');
     loadImage(process.argv[2], process.argv[3])
         .then(x => console.log(JSON.stringify(x)));
 }
