@@ -1,14 +1,14 @@
 import { Server } from 'socket.io';
 import { Colors } from './colors';
 import { getPixelsAt } from './placeCanvas';
-import { RandomQueue, Client, sleep, Pixel, getColorAt, ImageTemplate } from './utils';
+import { Queue, Client, sleep, Pixel, getColorAt, ImageTemplate } from './utils';
 import './admin';
 
 export let image: ImageTemplate = require('../data/image.json');
 
 export let io: Server;
 let clients: Client[] = [];
-let queue = new RandomQueue<Pixel>();
+let queue = new Queue<Pixel>();
 export let progress = 0;
 
 async function main() {
@@ -100,8 +100,8 @@ async function step() {
     updateClient(c.id, { ready: false });
 }
 
-async function getPixelsToDraw(): Promise<RandomQueue<Pixel>> {
-    let q = new RandomQueue<Pixel>();
+async function getPixelsToDraw(): Promise<Queue<Pixel>> {
+    let q = new Queue<Pixel>();
 
     const {topLeftX, topLeftY, width, height} = image.props;
     const currentData = await getPixelsAt(topLeftX, topLeftY, width, height);
