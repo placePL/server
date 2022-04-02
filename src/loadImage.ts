@@ -1,6 +1,6 @@
 import Jimp from 'jimp';
 import { Colors } from './colors';
-import { ImageTemplate } from './utils';
+import { ImageTemplate, rgbToHexString } from './utils';
 
 export async function loadImage(path: string, topxy: string): Promise<ImageTemplate> {
     const img = await Jimp.read(path);
@@ -11,13 +11,13 @@ export async function loadImage(path: string, topxy: string): Promise<ImageTempl
     let res = { props: { width, height, topLeftX, topLeftY }, pixels: [] }
     for(let y=0; y<height; y++) {
         for(let x=0; x<width; x++) {
-            let hex = img.getPixelColor(x, y).toString(16);
-            hex = ("00000000" + hex).slice(-8)
+            let colorInt = img.getPixelColor(x, y);
+            let { r, g, b, a } = Jimp.intToRGBA(colorInt);
 
-            if(hex.endsWith('00')) {
+            if(a === 0) {
                 continue;
             }
-            const color = hex.slice(2);
+            const color = rgbToHexString(r, g, b);
             res.pixels.push([x, y, Colors[color]])
         }
     }
