@@ -30,7 +30,7 @@ app.post('/admin', upload.single('file'), async (req, res) => {
 
     console.log('new image template loaded');
 
-    res.redirect('');
+    res.redirect('/web/admin');
 });
 
 const port = process.env.ADMIN_PORT || 3001;
