@@ -1,6 +1,6 @@
 import { Socket } from "socket.io";
 
-export class RandomQueue<T> {
+export class Queue<T> {
     elements: T[];
     constructor() {
       this.elements = [];
@@ -9,9 +9,8 @@ export class RandomQueue<T> {
       this.elements.push(element);
     }
     dequeue(): T {
-      const idx = Math.floor(Math.random() * this.length);
-      const item = this.elements[idx];
-      this.elements.splice(idx, 1);
+      const item = this.elements[0];
+      this.elements.splice(0, 1);
       return item;
     }
     get length() {
