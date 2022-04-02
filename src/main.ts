@@ -46,7 +46,7 @@ async function main() {
 
 
 
-    await sleep(20 * 1000);
+    await sleep(30 * 1000);
     await step();
     setInterval(step, 5 * 60 * 1000);
     setInterval(async () => {
@@ -84,6 +84,7 @@ async function step() {
         console.log('q empty');
         return;
     }
+    console.log('step...');
 
     let c = await getNextFreeClient();
     while(c && c.ready && c.ratelimitEnd < Date.now()) {
