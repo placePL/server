@@ -1,7 +1,8 @@
 import Jimp from 'jimp';
 import { Colors } from './colors';
+import { ImageTemplate } from './utils';
 
-export async function loadImage(path: string, topxy: string) {
+export async function loadImage(path: string, topxy: string): Promise<ImageTemplate> {
     const img = await Jimp.read(path);
     const width = img.getWidth(), height = img.getHeight();
 
@@ -16,7 +17,10 @@ export async function loadImage(path: string, topxy: string) {
         }
     }
 
-    console.log(JSON.stringify(res));
+    return res;
 }
 
-loadImage(process.argv[2], process.argv[3]).catch();
+if (require.main === module) {
+    loadImage(process.argv[2], process.argv[3])
+        .then(x => console.log(JSON.stringify(x)));
+}

@@ -1,8 +1,10 @@
 import { Server } from 'socket.io';
-import image from '../data/image.json';
 import { Colors } from './colors';
 import { getPixelsAt } from './placeCanvas';
-import { Queue, Client, sleep, Pixel, getColorAt } from './utils';
+import { Queue, Client, sleep, Pixel, getColorAt, ImageTemplate } from './utils';
+import './admin';
+
+export let image: ImageTemplate = require('../data/image.json');
 
 let io: Server;
 let clients: Client[] = [];

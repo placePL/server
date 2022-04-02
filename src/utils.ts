@@ -68,3 +68,17 @@ export function getColorAt(data: ImageData, x: number, y: number, width: number)
   
   return rgbToHexString(r, g, b);
 } 
+
+
+export interface Props {
+    width: number;
+    height: number;
+    topLeftX: number;
+    topLeftY: number;
+}
+
+export interface ImageTemplate {
+    props: Props;
+    pixels: number[][];
+}
+
