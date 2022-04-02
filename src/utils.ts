@@ -15,9 +15,10 @@ export class Queue<T> {
       this.tail++;
     }
     dequeue(): T {
-      const item = this.elements[this.head];
-      delete this.elements[this.head];
-      this.head++;
+      const idx = Math.floor(Math.random() * this.length);
+      const item = this.elements[idx];
+      delete this.elements[idx];
+      
       return item;
     }
     peek(): T {
