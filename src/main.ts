@@ -4,7 +4,7 @@ import { getPixelsAt } from './placeCanvas';
 import { Queue, Client, sleep, Pixel, getColorAt, ImageTemplate } from './utils';
 import './admin';
 
-export let image: ImageTemplate = require('../data/image.json');
+export let image: ImageTemplate = require('../../data/image.json');
 
 export let io: Server;
 let clients: Client[] = [];
@@ -109,6 +109,33 @@ async function step() {
     updateClient(c.id, { ready: false });
 }
 
+
+async function step2() {
+    if(queue.isEmpty) {
+        console.log('q empty');
+        return;
+    }
+    console.log('step...');
+
+    let c = await getNextFreeClient();
+    while(c && c.ready && c.ratelimitEnd < Date.now()) {
+        let px = queue.dequeue();
+
+        console.log(`sending draw to ${c.id} - ${px.x} ${px.y} ${px.color}`);
+        let socket = io.sockets.sockets.get(c.id);
+        if(!socket) {
+            removeClient(socket.id);
+            queue.enqueue(px);
+            return;
+        }
+    
+        socket.emit('draw', px);
+        totalDraws++;
+        updateClient(c.id, { ready: false });
+    
+        c = await getNextFreeClient();
+    }
+}
 
 async function getPixelsToDraw(): Promise<Queue<Pixel>> {
     let q = new Queue<Pixel>();
