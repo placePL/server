@@ -1,31 +1,21 @@
 import { Socket } from "socket.io";
 
-export class Queue<T> {
-    elements: Record<number, T>;
-    head: number;
-    tail: number;
-
+export class RandomQueue<T> {
+    elements: T[];
     constructor() {
-      this.elements = {};
-      this.head = 0;
-      this.tail = 0;
+      this.elements = [];
     }
     enqueue(element: T) {
-      this.elements[this.tail] = element;
-      this.tail++;
+      this.elements.push(element);
     }
     dequeue(): T {
       const idx = Math.floor(Math.random() * this.length);
       const item = this.elements[idx];
-      delete this.elements[idx];
-      
+      this.elements.splice(idx, 1);
       return item;
     }
-    peek(): T {
-      return this.elements[this.head];
-    }
     get length() {
-      return this.tail - this.head;
+      return this.elements.length;
     }
     get isEmpty() {
       return this.length === 0;
