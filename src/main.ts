@@ -10,11 +10,15 @@ export let io: Server;
 let clients: Client[] = [];
 let queue = new Queue<Pixel>();
 export let progress = 0;
+export let startTime = 0;
+export let totalDraws = 0;
 
 async function main() {
     io = new Server();
 
     queue = await getPixelsToDraw();
+
+    startTime = Date.now();
 
     io.on('connection', (socket) => {
         console.log('socket connected', socket.id);
@@ -97,6 +101,7 @@ async function step() {
     }
 
     socket.emit('draw', px);
+    totalDraws++;
     updateClient(c.id, { ready: false });
 }
 
