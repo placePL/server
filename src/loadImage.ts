@@ -26,7 +26,6 @@ export async function loadImage(path: string, topxy: string): Promise<ImageTempl
 }
 
 if (require.main === module) {
-    console.log('hi');
     loadImage(process.argv[2], process.argv[3])
         .then(x => console.log(JSON.stringify(x)));
 }
