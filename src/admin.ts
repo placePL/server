@@ -14,8 +14,8 @@ app.get('/', (req, res) => {
     const str = `    
 <h2>Obecny obrazek:</h2>
 <img src='/web/current.png'>
-<h2>Postęp: ${Math.round(progress * 100)}%</h2>
-<h2>Prędkość: ${totalDraws / (Date.now() - startTime)} piksele na sekundę</h2>
+<h2>Postęp: ${(progress * 100).toFixed(2)}%</h2>
+<h2>Prędkość: ${(totalDraws / (Date.now() - startTime)).toFixed(4)} piksele na sekundę</h2>
 <h2>Podłączeni użytkownicy: ${io.sockets.sockets.size}</h2>
 <h2>Lewy górny punkt: (${image.props.topLeftX}, ${image.props.topLeftY})</h2>
 `;
