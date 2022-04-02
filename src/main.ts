@@ -44,19 +44,21 @@ async function main() {
         })
     });
 
+    run().catch(console.error);
 
+    const port = parseInt(process.env.PORT) || 3000;
+    console.log(`listening on :${port}`);
+    io.listen(port);
+}
 
-    // await sleep(30 * 1000);
+async function run() {
+    await sleep(30 * 1000);
     await step();
     setInterval(step, 5 * 60 * 1000);
     setInterval(async () => {
         console.log('updating queue...');
         queue = await getPixelsToDraw();
-    }, 30 * 1000);
-
-    const port = parseInt(process.env.PORT) || 3000;
-    console.log(`listening on :${port}`)
-    io.listen(port);
+    }, 30 * 1000);    
 }
 
 function updateClient(id: string, newData: Partial<Client>) {
