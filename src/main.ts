@@ -120,7 +120,7 @@ async function getPixelsToDraw(): Promise<Queue<Pixel>> {
     }
     console.log(`${left}/${total} pixels left || ${clients.length} clients`);
 
-    progress = left/total;
+    progress = (total-left)/total;
 
     return q;
 }
