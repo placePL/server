@@ -20,7 +20,7 @@ app.post('/', upload.single('file'), async (req, res) => {
 
     console.log('new image template loaded');
 
-    res.redirect(req.path);
+    res.redirect('./');
 });
 
 const port = process.env.ADMIN_PORT || 3001;
