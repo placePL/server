@@ -92,7 +92,7 @@ async function step() {
     while(c && c.ready && c.ratelimitEnd < Date.now()) {
         let px = queue.dequeue();
 
-        console.log(`sending draw to ${c.id} - ${px.x} {px.y} {px.color}`);
+        console.log(`sending draw to ${c.id} - ${px.x} ${px.y} ${px.color}`);
         let socket = io.sockets.sockets.get(c.id);
         if(!socket) {
             removeClient(socket.id);
