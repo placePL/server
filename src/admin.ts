@@ -3,6 +3,7 @@ import multer from 'multer';
 import path from 'path';
 import { loadImage } from './loadImage';
 import { image } from './main';
+import fs from 'fs';
 
 const upload = multer({ dest: 'uploads/' })
 
@@ -17,6 +18,8 @@ app.post('/', upload.single('file'), async (req, res) => {
     let data = await loadImage(req.file.path, req.body.topLeftXY);
     image.props = data.props;
     image.pixels = data.pixels;
+
+    fs.writeFileSync(__dirname + '/../../data/image.json', JSON.stringify(data));
 
     console.log('new image template loaded');
 
