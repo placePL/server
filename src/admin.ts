@@ -10,11 +10,15 @@ const upload = multer({ dest: 'uploads/' })
 const app = express();
 // app.use(express.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
+app.get('/current.png', (req, res) => {
+    res.sendFile(path.resolve(__dirname + '/../../data/image.png'));
+})
+
+app.get('/admin', (req, res) => {
     res.sendFile(path.resolve(__dirname + '/../../static/index.html'));
 });
 
-app.post('/', upload.single('file'), async (req, res) => {
+app.post('/admin', upload.single('file'), async (req, res) => {
     let data = await loadImage(req.file.path, req.body.topLeftXY);
     image.props = data.props;
     image.pixels = data.pixels;

@@ -86,22 +86,30 @@
         input[type=file]:active::before {
             background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
         }
+
+        img {
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
+        }
     </style>
 </head>
 
 <body>
     <main>
-        <h1>Wgraj nowy wzór do placePL</h1>
+        <h1>Zarządzanie PlacePL</h1>
+        <h3>Obecny wzór</h3>
+        <img src='../current.png' width='100%' />
+        <br>
         <form method="post" action="" enctype="multipart/form-data">
             <div>
-                <label for="file">Obrazek</label>
+                <label for="file">Nowy wzór</label>
                 <input type="file" name="file">
             </div>
             <div>
                 <label for="topLeftXY">Koordynaty lewego górnego wierzchołka</label>
                 <input pattern="\d+,\d+" name="topLeftXY" placeholder="200,200">
             </div>
-            <br>
             <button type="submit">Prześlij</button>
         </form>
     </main>
