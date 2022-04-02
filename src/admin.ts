@@ -2,7 +2,7 @@ import express from 'express';
 import multer from 'multer';
 import path from 'path';
 import { loadImage } from './loadImage';
-import { image, progress } from './main';
+import { image, io, progress } from './main';
 import fs from 'fs';
 
 const upload = multer({ dest: 'uploads/' })
@@ -15,6 +15,7 @@ app.get('/', (req, res) => {
 <h2>Obecny obrazek:</h2>
 <img src='/web/current.png'>
 <h2>Postęp: ${Math.round(progress * 100)}%</h2>
+<h2>Podłączeni użytkownicy: ${io.sockets.sockets.size}</h2>
 <h2>Lewy górny punkt: (${image.props.topLeftX}, ${image.props.topLeftY})</h2>
 `;
     res.send(str);

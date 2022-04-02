@@ -6,7 +6,7 @@ import './admin';
 
 export let image: ImageTemplate = require('../data/image.json');
 
-let io: Server;
+export let io: Server;
 let clients: Client[] = [];
 let queue = new RandomQueue<Pixel>();
 export let progress = 0;
