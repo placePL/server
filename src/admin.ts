@@ -11,7 +11,7 @@ const app = express();
 // app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
-    res.send(`Postęp: ${Math.round(progress * 100)}`);
+    res.send(`Postęp: ${Math.round(progress * 100)}%`);
 });
 
 app.get('/current.png', (req, res) => {
