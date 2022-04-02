@@ -1,0 +1,22 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc && node dist/src/main.js",
+    "loadImage": "yarn tsc && node dist/src/loadImage.js > data/image2.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/socket.io": "^3.0.2",
+    "typescript": "^4.6.3"
+  },
+  "dependencies": {
+    "jimp": "^0.16.1",
+    "puppeteer": "^13.5.2",
+    "socket.io": "^4.4.1"
+  }
+}
