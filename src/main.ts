@@ -171,7 +171,7 @@ async function getPixelsToDraw(retry = false): Promise<Queue<Pixel>> {
     for (const [x, y, color] of image.pixels) {
         total++;
         const c = getColorAt(currentData, x, y, width);
-        console.log(`is: ${c} (${Colors[c]}), should be: ${color}`);
+        // console.log(`is: ${c} (${Colors[c]}), should be: ${color}`);
         if(Colors[c] == color || color == -1) continue;
 
         let obj = {x: topLeftX + x, y: topLeftY + y, color: color};
