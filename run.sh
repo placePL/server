@@ -1,0 +1,1 @@
+git pull && PORT=3088 ADMIN_PORT=3089 yarn start
