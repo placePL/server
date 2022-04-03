@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
 <h2>Obecny obrazek:</h2>
 <img src='/web/current.png'>
 <h2>Postęp: ${(progress * 100).toFixed(2)}%</h2>
-<h2>Prędkość: ${((Date.now() - startTime) / totalDraws).toFixed(4)} sekundy na piksel</h2>
+<h2>Postawiono ${totalDraws} pikseli w ciągu ${Date.now() - startTime}s</h2>
 <h2>Podłączeni użytkownicy: ${io.sockets.sockets.size}</h2>
 <h2>Lewy górny punkt: (${image.props.topLeftX}, ${image.props.topLeftY})</h2>
 `;
