@@ -35,6 +35,7 @@ export async function getPixelsAt(x: number, y: number, w: number, h: number): P
 
         busy = true;
 
+        console.log('g');
         await page.goto('https://www.reddit.com/r/place/?cx=500&cy=500&px=460');
 
         let p = path.resolve('test.png');
