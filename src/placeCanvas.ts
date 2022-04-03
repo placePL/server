@@ -6,15 +6,23 @@ let browser: puppeteer.Browser;
 let page: puppeteer.Page;
 let busy = false;
 
+async function launchBrowser() {
+    browser = await puppeteer.launch({
+        headless: true,
+        defaultViewport: {
+            width: 1000,
+            height: 800
+        }
+    });
+}
+
+setInterval(async () => {
+    await launchBrowser();
+}, 2 * 60 * 1000);
+
 export async function getPixelsAt(x: number, y: number, w: number, h: number): Promise<ImageData> {
     if(!browser) {
-        browser = await puppeteer.launch({
-            headless: true,
-            defaultViewport: {
-                width: 1000,
-                height: 800
-            }
-        });
+        await launchBrowser();
     }
 
     page = await browser.newPage();
