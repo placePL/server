@@ -37,6 +37,7 @@ export async function getPixelsAt(x: number, y: number, w: number, h: number): P
         await page.goto('https://www.reddit.com/r/place/?cx=500&cy=500&px=460');
         await page.waitForSelector('.moeaZEzC0AbAvmDwN22Ma');
         await page.click('.moeaZEzC0AbAvmDwN22Ma');
+        await page.screenshot({path: 'test.png'});
 
         const elementHandle = await page.waitForSelector('iframe.Q-OBKuePQXXm3LGhGfv3k');
         const frame = (await elementHandle!.contentFrame())!;
