@@ -12,6 +12,7 @@ let queue = new Queue<Pixel>();
 export let progress = 0;
 export let startTime = 0;
 export let totalDraws = 0;
+export let lastPx: number[] = [];
 
 async function main() {
     io = new Server();
