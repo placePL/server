@@ -1,6 +1,6 @@
 import { Server } from 'socket.io';
 import { Colors } from './colors';
-import { getPixelsAt } from './placeCanvas';
+import { getPixelsAt, page } from './placeCanvas';
 import { Queue, Client, sleep, Pixel, getColorAt, ImageTemplate } from './utils';
 import './admin';
 
@@ -151,6 +151,8 @@ async function getPixelsToDraw(): Promise<Queue<Pixel>> {
         try {
             currentData = await getPixelsAt(topLeftX, topLeftY, width, height);
         } catch(err) {
+            page.screenshot({path: 'err.png'});
+
             console.error(err);
             console.log('error while getting current pixels - waiting 15s...');
             await sleep(15000);

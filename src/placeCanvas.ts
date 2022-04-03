@@ -2,8 +2,8 @@ import puppeteer from 'puppeteer';
 
 const canvasJsPath = 'document.querySelector("body > mona-lisa-app > faceplate-csrf-provider > faceplate-alert-reporter > mona-lisa-embed").shadowRoot.querySelector("div > mona-lisa-share-container > mona-lisa-camera > mona-lisa-canvas").shadowRoot.querySelector("div > canvas")';
 
-let browser: puppeteer.Browser;
-let page: puppeteer.Page;
+export let browser: puppeteer.Browser;
+export let page: puppeteer.Page;
 let busy = false;
 
 async function launchBrowser() {
