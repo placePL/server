@@ -153,7 +153,7 @@ async function getPixelsToDraw(): Promise<Queue<Pixel>> {
             currentData = await getPixelsAt(topLeftX, topLeftY, width, height);
             ok = true;
         } catch(err) {
-            page.screenshot({path: 'err.png'});
+            await page.screenshot({path: 'err.png'});
 
             console.error(err);
             console.log(`error while getting current pixels - retry #${retries+1} - waiting 15s...`);
