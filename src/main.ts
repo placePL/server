@@ -87,7 +87,7 @@ async function getNextFreeClient(): Promise<Client | null> {
 
 async function step() {
     if(queue.isEmpty) {
-        console.log('q empty');
+        // console.log('q empty');
         return;
     }
 
@@ -116,7 +116,7 @@ async function step() {
 
 async function step2() {
     if(queue.isEmpty) {
-        console.log('q empty');
+        // console.log('q empty');
         return;
     }
     console.log('step...');
@@ -171,6 +171,7 @@ async function getPixelsToDraw(retry = false): Promise<Queue<Pixel>> {
     for (const [x, y, color] of image.pixels) {
         total++;
         const c = getColorAt(currentData, x, y, width);
+        console.log(`is: ${c} (${Colors[c]}), should be: ${color}`);
         if(Colors[c] == color || color == -1) continue;
 
         let obj = {x: topLeftX + x, y: topLeftY + y, color: color};
