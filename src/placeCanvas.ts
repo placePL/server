@@ -1,4 +1,5 @@
 import puppeteer from 'puppeteer';
+import path from 'path';
 
 const canvasJsPath = 'document.querySelector("body > mona-lisa-app > faceplate-csrf-provider > faceplate-alert-reporter > mona-lisa-embed").shadowRoot.querySelector("div > mona-lisa-share-container > mona-lisa-camera > mona-lisa-canvas").shadowRoot.querySelector("div > canvas")';
 
@@ -36,8 +37,9 @@ export async function getPixelsAt(x: number, y: number, w: number, h: number): P
 
         await page.goto('https://www.reddit.com/r/place/?cx=500&cy=500&px=460');
 
-        console.log('screenshot');
-        await page.screenshot({path: 'test.png'});
+        let p = path.resolve('test.png');
+        console.log('screenshot ', p);
+        await page.screenshot({path: p});
 
         await page.waitForSelector('.moeaZEzC0AbAvmDwN22Ma');
         await page.click('.moeaZEzC0AbAvmDwN22Ma');
