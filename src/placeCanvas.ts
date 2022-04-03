@@ -7,7 +7,7 @@ let page: puppeteer.Page;
 let busy = false;
 
 async function launchBrowser() {
-    browser?.close();
+    await browser?.close();
     browser = await puppeteer.launch({
         headless: true,
         defaultViewport: {
@@ -19,7 +19,7 @@ async function launchBrowser() {
 
 setInterval(async () => {
     await launchBrowser();
-}, 2 * 60 * 1000);
+}, 3 * 60 * 1000);
 
 export async function getPixelsAt(x: number, y: number, w: number, h: number): Promise<ImageData> {
     if(!browser) {

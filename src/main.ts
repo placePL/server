@@ -61,7 +61,7 @@ async function run() {
     setInterval(async () => {
         console.log('updating queue...');
         queue = await getPixelsToDraw();
-    }, 20 * 1000);    
+    }, 60 * 1000);    
 }
 
 function updateClient(id: string, newData: Partial<Client>) {
