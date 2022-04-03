@@ -17,6 +17,7 @@ export let lastPx: number[] = [];
 async function main() {
     io = new Server();
 
+    console.log('getting initial queue...');
     queue = await getPixelsToDraw();
 
     startTime = Date.now();
