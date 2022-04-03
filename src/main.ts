@@ -146,9 +146,9 @@ async function getPixelsToDraw(): Promise<Queue<Pixel>> {
 
     const {topLeftX, topLeftY, width, height} = image.props;
 
-    let ok = false, retries = 5;
+    let ok = false, retries = 0;
     let currentData: ImageData;
-    while(!ok && retries >= 0) {
+    while(!ok && retries < 5) {
         try {
             currentData = await getPixelsAt(topLeftX, topLeftY, width, height);
             ok = true;
@@ -156,7 +156,7 @@ async function getPixelsToDraw(): Promise<Queue<Pixel>> {
             page.screenshot({path: 'err.png'});
 
             console.error(err);
-            console.log('error while getting current pixels - waiting 15s...');
+            console.log(`error while getting current pixels - retry #${retries+1} - waiting 15s...`);
             await sleep(15000);
         }
         retries--;
