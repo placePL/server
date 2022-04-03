@@ -7,6 +7,7 @@ let page: puppeteer.Page;
 let busy = false;
 
 async function launchBrowser() {
+    browser?.close();
     browser = await puppeteer.launch({
         headless: true,
         defaultViewport: {

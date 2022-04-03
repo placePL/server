@@ -9,7 +9,7 @@ export class Queue<T> {
       this.elements.push(element);
     }
     dequeue(): T {
-      const idx = 0; // Math.floor(Math.random() * this.length)
+      const idx = Math.floor(Math.random() * this.length)
       const item = this.elements[idx];
       this.elements.splice(idx, 1);
       return item;
