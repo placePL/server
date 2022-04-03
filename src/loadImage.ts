@@ -17,8 +17,10 @@ export async function loadImage(path: string, topxy: string): Promise<ImageTempl
             if(a === 0) {
                 continue;
             }
-            const color = rgbToHexString(r, g, b);
-            res.pixels.push([x, y, Colors[color]])
+            const colorHex = rgbToHexString(r, g, b);
+            const colorReddit = Colors[colorHex];
+            if(!colorReddit) continue;
+            res.pixels.push([x, y, colorReddit]);
         }
     }
 
