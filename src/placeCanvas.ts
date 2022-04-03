@@ -40,7 +40,7 @@ export async function getPixelsAt(x: number, y: number, w: number, h: number): P
         busy = true;
 
         // console.log('g');
-        await page.goto('https://www.reddit.com/r/place/?cx=500&cy=500&px=460', {timeout: 2 * 60 * 1000});
+        await page.goto(`https://www.reddit.com/r/place/?cx=${x}&cy=${y}&px=137`, {timeout: 2 * 60 * 1000});
         console.log('rplace ok');
 
         // let p = path.resolve('test.png');
