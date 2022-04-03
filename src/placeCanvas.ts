@@ -34,7 +34,7 @@ export async function getPixelsAt(x: number, y: number, w: number, h: number): P
 
         busy = true;
 
-        page.goto('https://www.reddit.com/r/place/?cx=500&cy=500&px=460');
+        await page.goto('https://www.reddit.com/r/place/?cx=500&cy=500&px=460');
         await page.waitForSelector('.moeaZEzC0AbAvmDwN22Ma');
         await page.click('.moeaZEzC0AbAvmDwN22Ma');
 
