@@ -53,11 +53,11 @@ async function main() {
 }
 
 async function run() {
-    await sleep(30 * 1000);
-    await step2();
-    setInterval(step2, (5 * 60 * 1000) + 5000);
+    // await sleep(30 * 1000);
+    // await step2();
+    // setInterval(step2, (5 * 60 * 1000) + 5000);
 
-    // setInterval(step, 1000);
+    setInterval(step, 1000);
     setInterval(async () => {
         console.log('updating queue...');
         queue = await getPixelsToDraw();
