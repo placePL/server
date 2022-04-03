@@ -18,12 +18,15 @@ async function launchBrowser() {
     });
 }
 
-// setInterval(async () => {
-//     await launchBrowser();
-// }, 3 * 60 * 1000);
+setInterval(async () => {
+    await launchBrowser();
+}, 3 * 60 * 1000);
 
 export async function getPixelsAt(x: number, y: number, w: number, h: number): Promise<ImageData> {
-    if (busy) return;
+    if (busy) {
+        console.log('browser busy');
+        return;
+    }
 
     try {
         if (!browser) {
@@ -36,12 +39,13 @@ export async function getPixelsAt(x: number, y: number, w: number, h: number): P
 
         busy = true;
 
-        console.log('g');
+        // console.log('g');
         await page.goto('https://www.reddit.com/r/place/?cx=500&cy=500&px=460');
+        console.log('rplace ok');
 
-        let p = path.resolve('test.png');
-        console.log('screenshot ', p);
-        await page.screenshot({path: p});
+        // let p = path.resolve('test.png');
+        // console.log('screenshot ', p);
+        // await page.screenshot({path: p});
 
         await page.waitForSelector('.moeaZEzC0AbAvmDwN22Ma');
         await page.click('.moeaZEzC0AbAvmDwN22Ma');

@@ -18,7 +18,7 @@ async function main() {
     io = new Server();
 
     console.log('getting initial queue...');
-    queue = await getPixelsToDraw();
+    queue = await getPixelsToDraw(true);
 
     startTime = Date.now();
 
@@ -141,7 +141,7 @@ async function step2() {
     }
 }
 
-async function getPixelsToDraw(): Promise<Queue<Pixel>> {
+async function getPixelsToDraw(retry = false): Promise<Queue<Pixel>> {
     let q = new Queue<Pixel>();
 
     const {topLeftX, topLeftY, width, height} = image.props;
@@ -154,8 +154,12 @@ async function getPixelsToDraw(): Promise<Queue<Pixel>> {
             ok = true;
         } catch(err) {
             await page.screenshot({path: 'err.png'});
-
             console.error(err);
+
+            if(!retry) {
+                return;
+            }
+
             console.log(`error while getting current pixels - retry #${retries+1} - waiting 15s...`);
             await sleep(15000);
         }
