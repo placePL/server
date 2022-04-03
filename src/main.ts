@@ -144,7 +144,18 @@ async function getPixelsToDraw(): Promise<Queue<Pixel>> {
     let q = new Queue<Pixel>();
 
     const {topLeftX, topLeftY, width, height} = image.props;
-    const currentData = await getPixelsAt(topLeftX, topLeftY, width, height);
+
+    let ok = false;
+    let currentData: ImageData;
+    while(!ok) {
+        try {
+            currentData = await getPixelsAt(topLeftX, topLeftY, width, height);
+        } catch(err) {
+            console.error(err);
+            console.log('error while getting current pixels - waiting 15s...');
+            await sleep(15000);
+        }
+    }
 
     let total = 0;
     let left = 0;
