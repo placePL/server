@@ -9,8 +9,9 @@ export class Queue<T> {
       this.elements.push(element);
     }
     dequeue(): T {
-      const item = this.elements[0];
-      this.elements.splice(0, 1);
+      const idx = Math.floor(Math.random() * this.length)
+      const item = this.elements[idx];
+      this.elements.splice(idx, 1);
       return item;
     }
     get length() {
