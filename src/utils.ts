@@ -48,7 +48,7 @@ export function rgbToHex(r, g, b) {
 }
 
 export function rgbToHexString(r, g, b) {
-  return ("000000" + rgbToHex(r, g, b)).slice(-6);
+  return '#'+("000000" + rgbToHex(r, g, b)).slice(-6);
 }
 
 export function getColorAt(data: ImageData, x: number, y: number, width: number): string | null {
